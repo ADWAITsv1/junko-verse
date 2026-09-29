@@ -9,7 +9,6 @@ import {
   ArrowRight,
   Check,
   Clock,
-  Copy,
   Gift,
   Heart,
   HelpCircle,
@@ -38,7 +37,7 @@ const moodOptions: MoodOption[] = [
     icon: '⛳️',
     title: 'ゴルフの打ちっぱなし',
     detail: '一緒にスイング練習！どっちが遠くに飛ばせるか勝負🏌️‍♀️',
-    compliment: '⛳️ ゴルフ練習、いいね！アドワイトも密かにスイングを練習してるみたいだけど、きっとじゅんこの方がフォームが綺麗だにゃ！楽しく打ってリフレッシュしよう！'
+    compliment: '⛳️ ゴルフ練習、いいね！アドワイトも密かにスイングを練習してるみたいだけど、きっと淳子の方がフォームが綺麗だにゃ！楽しく打ってリフレッシュしよう！'
   },
   {
     id: 'dinner',
@@ -57,19 +56,19 @@ const moodOptions: MoodOption[] = [
   {
     id: 'other',
     icon: '✨',
-    title: 'じゅんこのおすすめプラン（自由入力）',
+    title: '淳子のおすすめプラン（自由入力）',
     detail: '行きたい場所ややってみたいことがあれば教えてね！',
     compliment: (customText: string) =>
-      `🌟 「${customText || 'じゅんこの特別プラン'}」！それすごく楽しそうだにゃ！じゅんこのセンスは最高！アドワイトもきっと大喜びするよ🐾`
+      `🌟 「${customText || '淳子の特別プラン'}」！それすごく楽しそうだにゃ！淳子のセンスは最高！アドワイトもきっと大喜びするよ🐾`
   }
 ];
 
 const generalExcuses = [
-  '🐾 猫審議会からの報告：アドワイトはお仕事中ですが、じゅんこと遊ぶ日を楽しみにして指折り数えています！',
+  '🐾 猫審議会からの報告：アドワイトはお仕事中ですが、淳子と遊ぶ日を楽しみにして指折り数えています！',
   '🐾 最高のお出かけにするために、美味しいお店やスイーツを一生懸命リサーチ中です！',
   '🐾 お出かけ当日に向けて、猫からの指令でしっかりエネルギーチャージしています🐾',
-  '🐾 じゅんこに笑顔になってもらえるよう、面白いお話を準備しているみたいです😸',
-  '🐾 猫の特別パトロール：アドワイトはお仕事中もじゅんことの約束を楽しみにしてワクワクしています！'
+  '🐾 淳子に笑顔になってもらえるよう、面白いお話を準備しているみたいです😸',
+  '🐾 猫の特別パトロール：アドワイトはお仕事中も淳子との約束を楽しみにしてワクワクしています！'
 ];
 
 const confetti = Array.from({ length: 32 }, (_, id) => ({
@@ -101,7 +100,6 @@ export default function Home() {
   const [selectedSlot, setSelectedSlot] = useState<string>('');
   const [showExcuseDrawer, setShowExcuseDrawer] = useState<boolean>(false);
   const [indiaWarningModal, setIndiaWarningModal] = useState<boolean>(false);
-  const [copiedToast, setCopiedToast] = useState<boolean>(false);
   const [isNotifying, setIsNotifying] = useState<boolean>(false);
   const [notifySent, setNotifySent] = useState<boolean>(false);
 
@@ -150,7 +148,7 @@ export default function Home() {
         badge: '終日OK！☀️',
         description: '日曜日は一日中フリー！お昼のカフェやお散歩、夜ご飯まで何時でも合わせられます！',
         slots: ['11:30', '13:30', '15:30', '17:30', '19:00', '20:30'],
-        excuse: '日曜日はミーティングが全くありません！じゅんこの都合の良い時間にいつでも合わせられます！'
+        excuse: '日曜日はミーティングが全くありません！淳子の都合の良い時間にいつでも合わせられます！'
       };
     } else if (day >= 1 && day <= 4) {
       // Monday to Thursday: Free after 19:00 (7:00 PM)
@@ -204,7 +202,7 @@ export default function Home() {
     setNoAttempts(prev => {
       const next = prev + 1;
       const warnings = [
-        '🐾 猫パンチ発動！じゅんこ、アドワイトに「いいえ」は言えません！🥺',
+        '🐾 猫パンチ発動！淳子、アドワイトに「いいえ」は言えません！🥺',
         '🐾 猫の法律によりアクセス拒否！光る「もちろん、行こう！」を押してね✨',
         '🐾 ぷいっ！猫がボタンをガードしています。アドワイトをがっかりさせないで〜！😸',
         '🐾 猫の肉球スタンプで拒否！「はい」を押すのが唯一のルールです🥰',
@@ -245,7 +243,7 @@ export default function Home() {
 
   const currentMoodTitle = useMemo(() => {
     if (selectedMoodId === 'other') {
-      return customMoodText.trim() ? customMoodText : 'じゅんこのおすすめプラン';
+      return customMoodText.trim() ? customMoodText : '淳子のおすすめプラン';
     }
     return moodOptions.find(m => m.id === selectedMoodId)?.title ?? 'ゴルフの打ちっぱなし';
   }, [selectedMoodId, customMoodText]);
@@ -266,7 +264,7 @@ export default function Home() {
       date: formattedDate,
       time: selectedSlot,
       message: shareText,
-      guest: 'Junko',
+      guest: '淳子',
       timestamp: new Date().toISOString(),
     };
     try {
@@ -284,14 +282,6 @@ export default function Home() {
     } finally {
       setIsNotifying(false);
       setStep('confirmed');
-    }
-  };
-
-  const handleCopyMessage = () => {
-    if (navigator?.clipboard) {
-      navigator.clipboard.writeText(shareText);
-      setCopiedToast(true);
-      window.setTimeout(() => setCopiedToast(false), 3000);
     }
   };
 
@@ -314,7 +304,7 @@ export default function Home() {
           <i className={step === 'confirmed' ? 'active' : ''} />
         </div>
 
-        <span className="top-note">じゅんこへ、小さなお手紙</span>
+        <span className="top-note">淳子へ、小さなお手紙</span>
       </nav>
 
       <div className="main-content-window">
@@ -325,7 +315,7 @@ export default function Home() {
           <section className="delivery-view animate-fade-in">
             <div className="delivery-hero-text">
               <p className="eyebrow"><Sparkles size={14} /> 特別なお届けもの</p>
-              <h1>じゅんこへ、<br />大切なお手紙。</h1>
+              <h1>淳子へ、<br />大切なお手紙。</h1>
               <p className="delivery-sub">
                 アドワイト専属のかわいい黒猫が、<br />
                 大切なお手紙を届けにやってきました。
@@ -402,7 +392,7 @@ export default function Home() {
                 <div className="letter-unfolding-parchment">
                   <div className="parchment-inner">
                     <span className="parchment-sparkle">✨</span>
-                    <p className="parchment-title">じゅんこへ</p>
+                    <p className="parchment-title">淳子へ</p>
                     <span className="parchment-badge">大切なお手紙 🐾</span>
                   </div>
                 </div>
@@ -456,7 +446,7 @@ export default function Home() {
                     <h2>黒猫アンバサダーより公式の質問</h2>
                   </div>
                   <div className="bot-status-pill">
-                    <span className="live-dot" /> じゅんこBot 🐾
+                    <span className="live-dot" /> 淳子Bot 🐾
                   </div>
                 </div>
 
@@ -464,7 +454,7 @@ export default function Home() {
                   <div className="chat-bubble bot-msg animate-bubble-1">
                     <span className="bubble-icon">🐾</span>
                     <div className="bubble-content">
-                      <p className="bubble-greeting">じゅんこバースへようこそ！✨</p>
+                      <p className="bubble-greeting">淳子バースへようこそ！✨</p>
                       <p>アドワイト専属の公式黒猫アシスタント（兼・仲良し特使 🐾）ですにゃ。</p>
                     </div>
                   </div>
@@ -472,7 +462,7 @@ export default function Home() {
                   <div className="chat-bubble bot-msg animate-bubble-2">
                     <span className="bubble-icon">💌</span>
                     <div className="bubble-content">
-                      <p>じゅんこに、どうしても聞きたい大切な質問があります…！</p>
+                      <p>淳子に、どうしても聞きたい大切な質問があります…！</p>
                       <p className="highlight-question">「今度、アドワイトと一緒に遊びに行かない？🥺」</p>
                     </div>
                   </div>
@@ -541,7 +531,7 @@ export default function Home() {
             <div className="mood-header">
               <p className="eyebrow"><Sparkles size={14} /> STEP 02 / プラン選び</p>
               <h2>アドワイトと、<br />何をして過ごす？</h2>
-              <p className="mood-sub">じゅんこの気分に合わせて、好きなプランを教えてね！</p>
+              <p className="mood-sub">淳子の気分に合わせて、好きなプランを教えてね！</p>
             </div>
 
             <div className="mood-grid">
@@ -767,7 +757,7 @@ export default function Home() {
                   </div>
                   <div className="modal-body">
                     <p className="modal-intro">
-                      じゅんこ、ごめんなさい！<strong>11月6日</strong>からはインドへ出張するため、遊べるのは<strong>11月5日</strong>までとなります！じゅんこにお土産を買ってくる特別ミッションがあります 🎁🇮🇳
+                      淳子、ごめんなさい！<strong>11月6日</strong>からはインドへ出張するため、遊べるのは<strong>11月5日</strong>までとなります！淳子にお土産を買ってくる特別ミッションがあります 🎁🇮🇳
                     </p>
                     <div className="modal-cat-note">
                       <span>🐾</span>
@@ -812,14 +802,14 @@ export default function Home() {
                 </div>
 
                 <div className="ticket-title-block">
-                  <h2>約束成立、<em>じゅんこ！</em> 🎉</h2>
+                  <h2>約束成立、<em>淳子！</em> 🎉</h2>
                   <p className="ticket-sub">アドワイト専属の猫アシスタントが、しっかりお約束を受け付けました🐾</p>
                 </div>
 
                 <div className="ticket-info-grid">
                   <div className="info-cell">
                     <span className="cell-label">特別ゲスト</span>
-                    <strong className="cell-val">じゅんこ ✨</strong>
+                    <strong className="cell-val">淳子 ✨</strong>
                   </div>
 
                   <div className="info-cell">
@@ -865,17 +855,8 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Action Buttons: Copy Message & Replay */}
+                {/* Action Buttons: Replay */}
                 <div className="ticket-actions">
-                  <button
-                    type="button"
-                    className="primary-action copy-action-btn"
-                    onClick={handleCopyMessage}
-                  >
-                    {copiedToast ? <Check size={16} /> : <Copy size={16} />}
-                    {copiedToast ? 'コピーしました！ 🙂' : 'メッセージをコピー 🙂'}
-                  </button>
-
                   <button
                     type="button"
                     className="button-reset replay-btn"
@@ -896,7 +877,7 @@ export default function Home() {
       </div>
 
       <footer>
-        <span>Created with joy & friendship · Junko & Adwait · 2026</span>
+        <span>Created with joy & friendship · 淳子 & アドワイト · 2026</span>
       </footer>
     </main>
   );

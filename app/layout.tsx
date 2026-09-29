@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('http://localhost:8080'),
+  metadataBase: new URL('https://junko-verse.vercel.app'),
   title: 'Can I steal you for a date?',
   description: 'A tiny invitation with a very charming cat and a date idea waiting for you.',
   openGraph: {
@@ -35,7 +35,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ja">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

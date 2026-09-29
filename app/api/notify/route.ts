@@ -10,7 +10,7 @@ export async function POST(request: Request) {
     const timestamp = new Date().toISOString();
     const record = {
       timestamp,
-      guest: guest || 'Junko',
+      guest: guest || '淳子',
       activity: activity || 'Practice Golf Track',
       date: date || '',
       time: time || '',
@@ -44,7 +44,7 @@ export async function POST(request: Request) {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            content: `🎉 **New Hangout Response from Junko!**\n\n💬 **Message:** ${message}\n📅 **Date & Time:** ${date} @ ${time}\n⛳ **Activity:** ${activity}`,
+            content: `🎉 **New Hangout Response from 淳子!**\n\n💬 **Message:** ${message}\n📅 **Date & Time:** ${date} @ ${time}\n⛳ **Activity:** ${activity}`,
           }),
         });
       } catch (err) {
@@ -57,7 +57,7 @@ export async function POST(request: Request) {
     const telegramChatId = process.env.TELEGRAM_CHAT_ID;
     if (telegramBotToken && telegramChatId) {
       try {
-        const tgText = `🎉 New Hangout Response from Junko!\n\nMessage: ${message}\nDate: ${date} @ ${time}\nActivity: ${activity}`;
+        const tgText = `🎉 New Hangout Response from 淳子!\n\nMessage: ${message}\nDate: ${date} @ ${time}\nActivity: ${activity}`;
         await fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -78,7 +78,7 @@ export async function POST(request: Request) {
         await fetch(`https://ntfy.sh/${ntfyTopic}`, {
           method: 'POST',
           headers: {
-            'Title': 'New Hangout Confirmed by Junko!',
+            'Title': 'New Hangout Confirmed by 淳子!',
             'Tags': 'tada,sparkles,cat',
             'Priority': 'high',
           },
@@ -102,12 +102,12 @@ export async function POST(request: Request) {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            from: 'Junko Hangout <onboarding@resend.dev>',
+            from: '淳子 Hangout <onboarding@resend.dev>',
             to: [recipientEmail],
-            subject: `🎉 じゅんこからお返事が届きました！（${activity}）`,
+            subject: `🎉 淳子からお返事が届きました！（${activity}）`,
             html: `
               <h2>Hey Adwait! 🎉</h2>
-              <p>じゅんこがおでかけの約束を確定しました！</p>
+              <p>淳子がおでかけの約束を確定しました！</p>
               <div style="background:#f4fbf7;padding:16px 20px;border-radius:12px;border:1px solid #b7e4c7;margin:16px 0;">
                 <p style="margin:6px 0;"><strong>⛳ プラン:</strong> ${activity}</p>
                 <p style="margin:6px 0;"><strong>📅 日程・時間:</strong> ${date} ${time}</p>
@@ -137,7 +137,7 @@ export async function POST(request: Request) {
         const smsParams = new URLSearchParams({
           To: targetPhone,
           From: twilioFrom,
-          Body: `🎉 Junko Confirmed Hangout!\n${activity} on ${date} @ ${time}\n"${message}"`,
+          Body: `🎉 淳子 Confirmed Hangout!\n${activity} on ${date} @ ${time}\n"${message}"`,
         });
         await fetch(`https://api.twilio.com/2010-04-01/Accounts/${twilioSid}/Messages.json`, {
           method: 'POST',
