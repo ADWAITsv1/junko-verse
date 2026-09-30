@@ -284,7 +284,7 @@ export default function Home() {
   // BGM Audio Controller ("Stuck with U", trimmed from 1:25, looped, soft volume)
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const [isMuted, setIsMuted] = useState<boolean>(false);
+  const userMutedRef = useRef<boolean>(false);
 
   useEffect(() => {
     const audio = new Audio('/bgm-stuck-with-u.mp3');
@@ -292,13 +292,16 @@ export default function Home() {
     audio.volume = 0.18; // Low, gentle background volume
     audioRef.current = audio;
 
+    const onPlay = () => setIsPlaying(true);
+    const onPause = () => setIsPlaying(false);
+    audio.addEventListener('play', onPlay);
+    audio.addEventListener('pause', onPause);
+
     // Start playing on first user interaction anywhere on the page
     const handleFirstInteraction = () => {
-      if (audioRef.current && audioRef.current.paused && !isMuted) {
+      if (audioRef.current && audioRef.current.paused && !userMutedRef.current) {
         audioRef.current.volume = 0.18;
-        audioRef.current.play().then(() => {
-          setIsPlaying(true);
-        }).catch(() => {});
+        audioRef.current.play().catch(() => {});
       }
     };
 
@@ -308,23 +311,27 @@ export default function Home() {
     return () => {
       window.removeEventListener('click', handleFirstInteraction);
       window.removeEventListener('touchstart', handleFirstInteraction);
+      audio.removeEventListener('play', onPlay);
+      audio.removeEventListener('pause', onPause);
       audio.pause();
       audio.src = '';
     };
-  }, [isMuted]);
+  }, []);
 
   const toggleBgm = () => {
     if (!audioRef.current) return;
     if (audioRef.current.paused) {
+      userMutedRef.current = false;
       audioRef.current.volume = 0.18;
       audioRef.current.play().then(() => {
         setIsPlaying(true);
-        setIsMuted(false);
-      }).catch(() => {});
+      }).catch((e) => {
+        console.log('BGM play error:', e);
+      });
     } else {
+      userMutedRef.current = true;
       audioRef.current.pause();
       setIsPlaying(false);
-      setIsMuted(true);
     }
   };
 
@@ -476,7 +483,7 @@ export default function Home() {
   // Handler for tapping the envelope
   const handleOpenLetter = () => {
     if (step !== 'delivery') return;
-    if (audioRef.current && audioRef.current.paused && !isMuted) {
+    if (audioRef.current && audioRef.current.paused && !userMutedRef.current) {
       audioRef.current.volume = 0.18;
       audioRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
     }
@@ -632,14 +639,14 @@ export default function Home() {
         <div className="nav-right-actions">
           <button
             type="button"
-            className={`bgm-control-pill ${isPlaying && !isMuted ? 'is-playing' : ''}`}
+            className={`bgm-control-pill ${isPlaying ? 'is-playing' : ''}`}
             onClick={toggleBgm}
-            aria-label={isPlaying && !isMuted ? 'BGMを一時停止' : 'BGMを再生'}
+            aria-label={isPlaying ? 'BGMを一時停止' : 'BGMを再生'}
             title="BGM: Stuck with U"
           >
-            <span className="bgm-icon">{isPlaying && !isMuted ? '🎵' : '🔇'}</span>
-            <span className="bgm-label">{isPlaying && !isMuted ? 'BGM ON' : 'BGM OFF'}</span>
-            {isPlaying && !isMuted && (
+            <span className="bgm-icon">{isPlaying ? '🎵' : '🔇'}</span>
+            <span className="bgm-label">{isPlaying ? 'BGM ON' : 'BGM OFF'}</span>
+            {isPlaying && (
               <span className="bgm-waves" aria-hidden="true">
                 <span className="wave-bar bar-1" />
                 <span className="wave-bar bar-2" />
