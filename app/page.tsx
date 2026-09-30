@@ -7,6 +7,7 @@ import { ja } from 'date-fns/locale/ja';
 import {
   ArrowLeft,
   ArrowRight,
+  CalendarDays,
   Check,
   Clock,
   Gift,
@@ -31,7 +32,168 @@ interface MoodOption {
   compliment: string | ((custom: string) => string);
 }
 
+export interface AutumnEvent {
+  id: string;
+  title: string;
+  category: 'fireworks' | 'festival' | 'food';
+  categoryLabel: string;
+  badgeEmoji: string;
+  dates: string[]; // YYYY-MM-DD
+  dateDisplay: string;
+  location: string;
+  timeInfo: string;
+  shortDesc: string;
+  fullDesc: string;
+  recommendedSlot?: string;
+  highlightTag?: string;
+}
+
+export const autumnEvents: AutumnEvent[] = [
+  {
+    id: 'tamagawa-fireworks',
+    title: '第48回 世田谷区たまがわ花火大会',
+    category: 'fireworks',
+    categoryLabel: '秋の大花火大会',
+    badgeEmoji: '🎆',
+    dates: ['2026-10-03'],
+    dateDisplay: '10月3日 (土)',
+    location: '世田谷区 / 二子玉川緑地運動場',
+    timeInfo: '花火 18:00〜19:00',
+    shortDesc: '約6,000発！多摩川の夜空を彩る大花火大会。屋台もたくさん並びます✨',
+    fullDesc: '秋空の下、多摩川の両岸で打ち上がる約6,000発の華麗な大花火！屋台グルメも楽しめて、土曜18:00のアドワイトの空き時間にぴったりです。',
+    recommendedSlot: '18:00',
+    highlightTag: '約6,000発・屋台あり'
+  },
+  {
+    id: 'shinagawa-fireworks',
+    title: 'しながわ水辺の観光フェスタ・秋の運河花火まつり2026',
+    category: 'fireworks',
+    categoryLabel: '秋の運河花火',
+    badgeEmoji: '🎆',
+    dates: ['2026-10-10'],
+    dateDisplay: '10月10日 (土)',
+    location: '品川区 / 東品川海上公園・天王洲公園',
+    timeInfo: '花火 19:00〜19:30',
+    shortDesc: '約8,000発！天王洲の水辺と運河の夜空を満喫する花火フェス✨',
+    fullDesc: '水辺の涼やかな夜風を感じながら楽しむ約8,000発の秋花火！天王洲のロマンチックな運河沿いで、屋台やライトアップも楽しめます。',
+    recommendedSlot: '19:00',
+    highlightTag: '約8,000発・天王洲水辺'
+  },
+  {
+    id: 'ikebukuro-yosakoi',
+    title: '第57回 ふくろ祭り・東京よさこい',
+    category: 'festival',
+    categoryLabel: '伝統のお祭り',
+    badgeEmoji: '🏮',
+    dates: ['2026-10-10', '2026-10-11'],
+    dateDisplay: '10月10日(土)〜11日(日)',
+    location: '豊島区 / 池袋駅西口周辺',
+    timeInfo: '10/10(土) 前夜祭・10/11(日) 終日本祭',
+    shortDesc: '全国から踊り手が集結！大迫力の舞と熱気に包まれる秋のビッグフェス✨',
+    fullDesc: '池袋西口の通りを踊り手たちが練り歩く大熱狂のよさこい祭り！日曜日はアドワイトも終日フリーなので、昼から屋台巡りもできます。',
+    recommendedSlot: '13:30',
+    highlightTag: '大迫力の踊り・屋台巡り'
+  },
+  {
+    id: 'oeshiki-mando',
+    title: 'お会式 万灯練供養 (Oeshiki Festival)',
+    category: 'festival',
+    categoryLabel: '伝統の夜祭り',
+    badgeEmoji: '🏮',
+    dates: ['2026-10-12'],
+    dateDisplay: '10月12日 (月・祝)',
+    location: '大田区 / 池上本門寺',
+    timeInfo: '18:30〜深夜 (クライマックス)',
+    shortDesc: '和紙の桜で飾られた万灯を持つ3,000人の幻想的な行列！入場無料✨',
+    fullDesc: '池上本門寺へ向かって、3,000人もの人々が桜の花で飾られた美しい万灯を掲げて練り歩く伝統行事。太鼓と笛の音が夜空に響く圧巻の光景です。',
+    recommendedSlot: '19:00',
+    highlightTag: '桜灯籠行列・幻想的な夜'
+  },
+  {
+    id: 'kawagoe-matsuri',
+    title: '川越まつり (小江戸川越の秋祭り)',
+    category: 'festival',
+    categoryLabel: '伝統の山車祭り',
+    badgeEmoji: '🏮',
+    dates: ['2026-10-17', '2026-10-18'],
+    dateDisplay: '10月17日(土)〜18日(日)',
+    location: '埼玉県川越市 / 蔵造りの町並み',
+    timeInfo: '夕方〜夜 (山車巡行・提灯)',
+    shortDesc: '関東三大祭り！小江戸の蔵造り通りを彩る豪華絢爛な山車巡行🏮',
+    fullDesc: '江戸の風情が色濃く残る川越の町を、巨大で絢爛豪華な山車が巡行します。夜には提灯が灯り、お囃子の競演「曳っかわせ」は大迫力！',
+    recommendedSlot: '18:00',
+    highlightTag: '関東三大祭り・豪華山車'
+  },
+  {
+    id: 'asakusa-dragon',
+    title: '浅草寺 金龍の舞 (Golden Dragon Dance)',
+    category: 'festival',
+    categoryLabel: '浅草寺伝統の舞',
+    badgeEmoji: '🐉',
+    dates: ['2026-10-18'],
+    dateDisplay: '10月18日 (日)',
+    location: '台東区 / 浅草 浅草寺',
+    timeInfo: '11:00 / 14:00 / 15:00 (境内演舞)',
+    shortDesc: '18mの黄金の龍が舞い踊る浅草寺の名物行事！日曜昼のお散歩に最高✨',
+    fullDesc: '浅草寺本堂前で、長さ18メートル・重さ約88キロの黄金に輝く龍が勇壮に舞い踊る名物行事。芸者衆の華やかな行列も見どころです。日曜終日OK！',
+    recommendedSlot: '13:30',
+    highlightTag: '18mの金龍・芸者行列'
+  },
+  {
+    id: 'tokyo-bay-fireworks',
+    title: '中央区・港区 東京湾大華火祭',
+    category: 'fireworks',
+    categoryLabel: '11年ぶりの復活大花火',
+    badgeEmoji: '🎆',
+    dates: ['2026-10-24'],
+    dateDisplay: '10月24日 (土)',
+    location: '中央区 / 東京港晴海埠頭沖海上',
+    timeInfo: '花火 17:30〜19:00',
+    shortDesc: '11年ぶりの復活！東京湾の夜空に咲く約1万2,000発の超特大花火の祭典✨',
+    fullDesc: '東京の秋を代表する伝説の花火大会が11年ぶりに復活！晴海沖から打ち上がる約1万2,000発の花火と東京タワー・ベイエリアの夜景のコラボは必見です。',
+    recommendedSlot: '18:00',
+    highlightTag: '約12,000発・11年ぶり復活'
+  },
+  {
+    id: 'koenji-fes',
+    title: '高円寺フェス 2026',
+    category: 'festival',
+    categoryLabel: '秋のカルチャーフェス',
+    badgeEmoji: '🎭',
+    dates: ['2026-10-24', '2026-10-25'],
+    dateDisplay: '10月24日(土)〜25日(日)',
+    location: '杉並区 / 高円寺駅周辺商店街',
+    timeInfo: '昼〜夕方開催',
+    shortDesc: '路上プロレス・生ライブ・古着＆フード市！高円寺の街中がお祭り騒ぎ✨',
+    fullDesc: '個性あふれる高円寺の街全体がテーマパークに！駅前での無料路上プロレスや、ライブ、ハンドメイドマーケット、カフェ巡りなど見どころ満載です。',
+    recommendedSlot: '13:30',
+    highlightTag: '路上プロレス・ライブ・古着'
+  },
+  {
+    id: 'tokyo-ramen-festa',
+    title: '東京ラーメンフェスタ 2026',
+    category: 'food',
+    categoryLabel: '日本最大級ラーメン祭',
+    badgeEmoji: '🍜',
+    dates: ['2026-10-30', '2026-10-31', '2026-11-01', '2026-11-02', '2026-11-03'],
+    dateDisplay: '10月30日(金)〜11月3日(火・祝)',
+    location: '世田谷区 / 駒沢オリンピック公園 中央広場',
+    timeInfo: '10:30〜20:30',
+    shortDesc: '日本全国から名店が大集結！豚骨・醤油・味噌など絶品ラーメン食べ比べ🍜',
+    fullDesc: '駒沢公園の青空の下で全国選りすぐりのご当地ラーメンを楽しめる秋の恒例フェス！入場無料で、肌寒くなってきた秋の夜に熱々の一杯をシェアするのに最高です。',
+    recommendedSlot: '18:00',
+    highlightTag: '全国の名店・入場無料'
+  }
+];
+
 const moodOptions: MoodOption[] = [
+  {
+    id: 'fireworks',
+    icon: '🎆',
+    title: '秋の花火大会 ＆ お祭りフェス',
+    detail: 'たまがわ花火・東京湾大華火祭や、秋の伝統まつり・ラーメンフェスへ！',
+    compliment: '🎆 秋の花火やお祭り、最高だにゃ！澄んだ秋空に打ち上がる花火や屋台グルメは最高の思い出になるよ！アドワイトも大喜び間違いなし🐾'
+  },
   {
     id: 'golf',
     icon: '⛳️',
@@ -102,6 +264,47 @@ export default function Home() {
   const [indiaWarningModal, setIndiaWarningModal] = useState<boolean>(false);
   const [isNotifying, setIsNotifying] = useState<boolean>(false);
   const [notifySent, setNotifySent] = useState<boolean>(false);
+  const [appliedEventToast, setAppliedEventToast] = useState<string | null>(null);
+
+  // All event dates as Date objects for calendar modifier
+  const eventDateObjects = useMemo(() => {
+    const dates: Date[] = [];
+    autumnEvents.forEach(ev => {
+      ev.dates.forEach(dStr => {
+        const [year, month, day] = dStr.split('-').map(Number);
+        dates.push(new Date(year, month - 1, day));
+      });
+    });
+    return dates;
+  }, []);
+
+  // Events matching the currently selected date
+  const selectedDateEvents = useMemo(() => {
+    if (!selectedDate) return [];
+    const dateKey = format(selectedDate, 'yyyy-MM-dd');
+    return autumnEvents.filter(ev => ev.dates.includes(dateKey));
+  }, [selectedDate]);
+
+  // Jump to an event date from the quick-pick bar
+  const handleJumpToEvent = (ev: AutumnEvent) => {
+    const [year, month, day] = ev.dates[0].split('-').map(Number);
+    const targetDate = new Date(year, month - 1, day);
+    setSelectedDate(targetDate);
+    if (ev.recommendedSlot) {
+      setSelectedSlot(ev.recommendedSlot);
+    }
+  };
+
+  // Apply the event as the date activity plan
+  const handleApplyEventToPlan = (ev: AutumnEvent) => {
+    setSelectedMoodId('other');
+    setCustomMoodText(`${ev.title} ${ev.badgeEmoji}`);
+    if (ev.recommendedSlot) {
+      setSelectedSlot(ev.recommendedSlot);
+    }
+    setAppliedEventToast(`「${ev.title}」をデートプランに設定しました！🐾`);
+    window.setTimeout(() => setAppliedEventToast(null), 3500);
+  };
 
   // Preload cat sprite images
   useEffect(() => {
@@ -633,6 +836,14 @@ export default function Home() {
                     locale={ja}
                     selected={selectedDate}
                     defaultMonth={selectedDate || tomorrow}
+                    modifiers={{
+                      hasEvent: eventDateObjects,
+                    }}
+                    modifiersClassNames={{
+                      hasEvent: 'calendar-day-has-event',
+                      selected: 'calendar-selected',
+                      today: 'calendar-today'
+                    }}
                     onSelect={(d) => {
                       if (!d) return;
                       if (isAfter(d, maxAvailableDate)) {
@@ -653,6 +864,38 @@ export default function Home() {
                     }}
                   />
                 </div>
+
+                {/* Autumn Events Quick-Pick Bar */}
+                <div className="autumn-events-quick-bar">
+                  <div className="quick-bar-header">
+                    <div className="quick-bar-title-wrap">
+                      <span className="quick-bar-icon">🎆</span>
+                      <h4>10月〜11月の注目花火＆お祭り</h4>
+                    </div>
+                    <span className="quick-bar-badge">タップで日付ジャンプ 🐾</span>
+                  </div>
+
+                  <div className="quick-events-scroll">
+                    {autumnEvents.map(ev => {
+                      const isEventActive = selectedDate && ev.dates.includes(format(selectedDate, 'yyyy-MM-dd'));
+                      return (
+                        <button
+                          key={ev.id}
+                          type="button"
+                          className={`quick-event-chip ${isEventActive ? 'is-active' : ''}`}
+                          onClick={() => handleJumpToEvent(ev)}
+                        >
+                          <span className="chip-badge-emoji">{ev.badgeEmoji}</span>
+                          <div className="chip-texts">
+                            <span className="chip-date">{ev.dateDisplay}</span>
+                            <span className="chip-name">{ev.title}</span>
+                          </div>
+                          {isEventActive && <Check size={13} className="chip-active-check" />}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
 
               {/* Right Column: Time Slots & Excuses */}
@@ -668,6 +911,66 @@ export default function Home() {
                       </div>
                       <span className="day-badge-chip">{daySchedule.badge}</span>
                     </div>
+
+                    {/* Event Spotlight Card if current selectedDate has matching events */}
+                    {selectedDateEvents.length > 0 && (
+                      <div className="selected-date-events-wrapper">
+                        {selectedDateEvents.map(ev => {
+                          const isAlreadyPlan = (selectedMoodId === 'other' && customMoodText.includes(ev.title)) || (selectedMoodId === 'fireworks');
+                          return (
+                            <div key={ev.id} className="event-spotlight-card animate-slide-up">
+                              <div className="spotlight-top">
+                                <span className="spotlight-category-chip">
+                                  <Sparkles size={12} /> {ev.categoryLabel} {ev.badgeEmoji}
+                                </span>
+                                {ev.highlightTag && (
+                                  <span className="spotlight-highlight-tag">{ev.highlightTag}</span>
+                                )}
+                              </div>
+
+                              <h4 className="spotlight-title">{ev.title}</h4>
+
+                              <div className="spotlight-meta-row">
+                                <div className="spotlight-meta-item">
+                                  <MapPin size={13} className="meta-icon" />
+                                  <span>{ev.location}</span>
+                                </div>
+                                <div className="spotlight-meta-item">
+                                  <Clock size={13} className="meta-icon" />
+                                  <span>{ev.timeInfo}</span>
+                                </div>
+                              </div>
+
+                              <p className="spotlight-desc">{ev.fullDesc}</p>
+
+                              <button
+                                type="button"
+                                className={`spotlight-plan-btn ${isAlreadyPlan ? 'is-selected-plan' : ''}`}
+                                onClick={() => handleApplyEventToPlan(ev)}
+                              >
+                                {isAlreadyPlan ? (
+                                  <>
+                                    <Check size={15} /> プランに設定中！🥰
+                                  </>
+                                ) : (
+                                  <>
+                                    <Sparkles size={14} /> 「{ev.title}」をデートプランに選ぶ ✨
+                                  </>
+                                )}
+                              </button>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+
+                    {/* Applied Event Toast Message */}
+                    {appliedEventToast && (
+                      <div className="applied-event-toast animate-bounce-short">
+                        <span>🐾</span>
+                        <p>{appliedEventToast}</p>
+                      </div>
+                    )}
 
                     <p className="schedule-rule-note">{daySchedule.description}</p>
 
