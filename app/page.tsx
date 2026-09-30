@@ -9,6 +9,8 @@ import {
   ArrowRight,
   CalendarDays,
   Check,
+  ChevronLeft,
+  ChevronRight,
   Clock,
   Gift,
   Heart,
@@ -46,9 +48,28 @@ export interface AutumnEvent {
   fullDesc: string;
   recommendedSlot?: string;
   highlightTag?: string;
+  isRecommended?: boolean;
+  recommendBadge?: string;
 }
 
 export const autumnEvents: AutumnEvent[] = [
+  {
+    id: 'shinagawa-fireworks',
+    title: '天王洲アイル・秋の運河花火まつり2026',
+    category: 'fireworks',
+    categoryLabel: '秋の運河花火大会',
+    badgeEmoji: '🎆',
+    dates: ['2026-10-10'],
+    dateDisplay: '10月10日 (土)',
+    location: '品川区 / 東品川海上公園・天王洲公園（天王洲アイル）',
+    timeInfo: '花火 19:00〜19:30（土曜18:00〜OK）',
+    shortDesc: '水辺の夜風と運河沿いの夜景が最高！お互いの家からすぐ近くなので、行き帰りも楽ちんで安心です✨',
+    fullDesc: '水辺のウッドデッキから見上げる約8,000発の華麗な花火！なんといってもお互いの家からすぐ近くなので移動も帰り道もすごく楽ちん✨ 屋台や水辺のライトアップカフェもあって、混雑に疲れることなくゆったり秋の夜を楽しめるアドワイトの一番のおすすめスポットです！',
+    recommendedSlot: '19:00',
+    highlightTag: '約8,000発 · 水辺の夜景',
+    isRecommended: true,
+    recommendBadge: '近くて一番おすすめ'
+  },
   {
     id: 'tamagawa-fireworks',
     title: '第48回 世田谷区たまがわ花火大会',
@@ -65,19 +86,25 @@ export const autumnEvents: AutumnEvent[] = [
     highlightTag: '約6,000発・屋台あり'
   },
   {
-    id: 'shinagawa-fireworks',
-    title: 'しながわ水辺の観光フェスタ・秋の運河花火まつり2026',
-    category: 'fireworks',
-    categoryLabel: '秋の運河花火',
-    badgeEmoji: '🎆',
-    dates: ['2026-10-10'],
-    dateDisplay: '10月10日 (土)',
-    location: '品川区 / 東品川海上公園・天王洲公園',
-    timeInfo: '花火 19:00〜19:30',
-    shortDesc: '約8,000発！天王洲の水辺と運河の夜空を満喫する花火フェス✨',
-    fullDesc: '水辺の涼やかな夜風を感じながら楽しむ約8,000発の秋花火！天王洲のロマンチックな運河沿いで、屋台やライトアップも楽しめます。',
-    recommendedSlot: '19:00',
-    highlightTag: '約8,000発・天王洲水辺'
+    id: 'shonan-candle',
+    title: '江の島 湘南キャンドル2026',
+    category: 'festival',
+    categoryLabel: '日本最大級・1万本の灯火',
+    badgeEmoji: '🕯️',
+    dates: [
+      '2026-10-10', '2026-10-11', '2026-10-12', '2026-10-13', '2026-10-14',
+      '2026-10-15', '2026-10-16', '2026-10-17', '2026-10-18', '2026-10-19',
+      '2026-10-20', '2026-10-21', '2026-10-22', '2026-10-23', '2026-10-24',
+      '2026-10-25', '2026-10-26', '2026-10-27', '2026-10-28', '2026-10-29',
+      '2026-10-30', '2026-10-31', '2026-11-01', '2026-11-02', '2026-11-03'
+    ],
+    dateDisplay: '10/10(土)〜11/3(火・祝) 毎日開催',
+    location: '藤沢市江の島 / サムエル・コッキング苑',
+    timeInfo: '点灯 17:00〜 (平日20:00 / 土日祝21:00)',
+    shortDesc: '日本最大級1万本のキャンドルが灯る幻想的な25日間✨ 海風と江の島夜景も最高！',
+    fullDesc: '江の島シーキャンドルとコッキング苑に1万本のキャンドルが灯る秋の祭典。期間中は毎日開催！夕暮れの海と富士山、夜のキャンドルの光がとても綺麗です。',
+    recommendedSlot: '17:30',
+    highlightTag: '1万本の灯火・25日間毎日開催 🕯️'
   },
   {
     id: 'ikebukuro-yosakoi',
@@ -190,36 +217,29 @@ const moodOptions: MoodOption[] = [
   {
     id: 'fireworks',
     icon: '🎆',
-    title: '秋の花火大会 ＆ お祭りフェス',
-    detail: 'たまがわ花火・東京湾大華火祭や、秋の伝統まつり・ラーメンフェスへ！',
-    compliment: '🎆 秋の花火やお祭り、最高だにゃ！澄んだ秋空に打ち上がる花火や屋台グルメは最高の思い出になるよ！アドワイトも大喜び間違いなし🐾'
+    title: '秋の花火・キャンドル・お祭り',
+    detail: '天王洲アイル（10/10）や江の島キャンドルへ！',
+    compliment: '🎆 天王洲アイル（10/10）や江の島キャンドル、最高だにゃ！澄んだ秋の夜風と屋台グルメは最高の思い出になるよ！アドワイトも大喜び間違いなし🐾'
   },
   {
     id: 'golf',
     icon: '⛳️',
     title: 'ゴルフの打ちっぱなし',
-    detail: '一緒にスイング練習！どっちが遠くに飛ばせるか勝負🏌️‍♀️',
-    compliment: '⛳️ ゴルフ練習、いいね！アドワイトも密かにスイングを練習してるみたいだけど、きっと淳子の方がフォームが綺麗だにゃ！楽しく打ってリフレッシュしよう！'
+    detail: '一緒にスイング練習してリフレッシュ🏌️‍♀️',
+    compliment: '⛳️ ゴルフ練習、いいね！アドワイトも密かにスイングを練習してるみたいだけど、きっと淳子の方がフォームが綺麗だにゃ！楽しく打ってリフレッシュしよう！🐾'
   },
   {
     id: 'dinner',
     icon: '🍽️',
-    title: 'おいしい夜ご飯 ＆ カフェ',
-    detail: '落ち着くお店で美味しいご飯を食べて、のんびりおしゃべり✨',
-    compliment: '🍽️ 美味しいご飯、最高だにゃ！温かい空間でたくさんおしゃべりして、美味しいスイーツまで楽しもうね🍰'
-  },
-  {
-    id: 'cafe',
-    icon: '☕️',
-    title: 'カフェでお茶 ＆ スイーツ巡り',
-    detail: 'ゆったりカフェでコーヒーや紅茶、甘いスイーツでほっこり',
-    compliment: '☕️ まったりカフェタイム、素敵なチョイス！美味しいケーキと香りのいい紅茶で、ゆったり癒されよう〜🐾'
+    title: 'おいしい夜ご飯',
+    detail: '落ち着くお店でゆっくりおしゃべり🍽️',
+    compliment: '🍽️ 美味しいご飯、最高だにゃ！温かい空間でたくさんおしゃべりして、美味しいスイーツまで楽しもうね🍰🐾'
   },
   {
     id: 'other',
     icon: '✨',
-    title: '淳子のおすすめプラン（自由入力）',
-    detail: '行きたい場所ややってみたいことがあれば教えてね！',
+    title: '淳子のおすすめプラン',
+    detail: '行きたい場所があれば教えてね！',
     compliment: (customText: string) =>
       `🌟 「${customText || '淳子の特別プラン'}」！それすごく楽しそうだにゃ！淳子のセンスは最高！アドワイトもきっと大喜びするよ🐾`
   }
@@ -227,7 +247,7 @@ const moodOptions: MoodOption[] = [
 
 const generalExcuses = [
   '🐾 猫審議会からの報告：アドワイトはお仕事中ですが、淳子と遊ぶ日を楽しみにして指折り数えています！',
-  '🐾 最高のお出かけにするために、美味しいお店やスイーツを一生懸命リサーチ中です！',
+  '🐾 最高のお出かけにするために、美味しいご飯屋さんを一生懸命リサーチ中です！',
   '🐾 お出かけ当日に向けて、猫からの指令でしっかりエネルギーチャージしています🐾',
   '🐾 淳子に笑顔になってもらえるよう、面白いお話を準備しているみたいです😸',
   '🐾 猫の特別パトロール：アドワイトはお仕事中も淳子との約束を楽しみにしてワクワクしています！'
@@ -260,6 +280,7 @@ export default function Home() {
 
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(() => tomorrow);
   const [selectedSlot, setSelectedSlot] = useState<string>('');
+  const [activeEventIndex, setActiveEventIndex] = useState<number>(0);
   const [showExcuseDrawer, setShowExcuseDrawer] = useState<boolean>(false);
   const [indiaWarningModal, setIndiaWarningModal] = useState<boolean>(false);
   const [isNotifying, setIsNotifying] = useState<boolean>(false);
@@ -285,24 +306,45 @@ export default function Home() {
     return autumnEvents.filter(ev => ev.dates.includes(dateKey));
   }, [selectedDate]);
 
+  // Reset activeEventIndex when selectedDate changes
+  useEffect(() => {
+    setActiveEventIndex(0);
+  }, [selectedDate]);
+
   // Jump to an event date from the quick-pick bar
   const handleJumpToEvent = (ev: AutumnEvent) => {
     const [year, month, day] = ev.dates[0].split('-').map(Number);
     const targetDate = new Date(year, month - 1, day);
     setSelectedDate(targetDate);
+    const dateKey = format(targetDate, 'yyyy-MM-dd');
+    const dayEvents = autumnEvents.filter(e => e.dates.includes(dateKey));
+    const evIdx = dayEvents.findIndex(e => e.id === ev.id);
+    setActiveEventIndex(evIdx >= 0 ? evIdx : 0);
     if (ev.recommendedSlot) {
       setSelectedSlot(ev.recommendedSlot);
     }
   };
 
-  // Apply the event as the date activity plan
+  // Apply the event as the hangout activity plan
   const handleApplyEventToPlan = (ev: AutumnEvent) => {
     setSelectedMoodId('other');
     setCustomMoodText(`${ev.title} ${ev.badgeEmoji}`);
     if (ev.recommendedSlot) {
       setSelectedSlot(ev.recommendedSlot);
     }
-    setAppliedEventToast(`「${ev.title}」をデートプランに設定しました！🐾`);
+    setAppliedEventToast(`「${ev.title}」をお出かけプランに設定しました！🐾`);
+    window.setTimeout(() => setAppliedEventToast(null), 3500);
+  };
+
+  // Apply a combo plan (e.g. Golf/Dinner + Tennozu Isle Fireworks)
+  const handleApplyComboToPlan = (ev: AutumnEvent) => {
+    setSelectedMoodId('other');
+    const comboTitle = `${currentMoodTitle} ＆ ${ev.title} ${ev.badgeEmoji}`;
+    setCustomMoodText(comboTitle);
+    if (ev.recommendedSlot) {
+      setSelectedSlot(ev.recommendedSlot);
+    }
+    setAppliedEventToast(`「${currentMoodTitle} ＆ ${ev.title}」をセットにしました！🐾`);
     window.setTimeout(() => setAppliedEventToast(null), 3500);
   };
 
@@ -349,7 +391,7 @@ export default function Home() {
       return {
         dayName: '日曜日',
         badge: '終日OK！☀️',
-        description: '日曜日は一日中フリー！お昼のカフェやお散歩、夜ご飯まで何時でも合わせられます！',
+        description: '日曜日は一日中フリー！お昼のお散歩や夜ご飯まで何時でも合わせられます！',
         slots: ['11:30', '13:30', '15:30', '17:30', '19:00', '20:30'],
         excuse: '日曜日はミーティングが全くありません！淳子の都合の良い時間にいつでも合わせられます！'
       };
@@ -409,7 +451,7 @@ export default function Home() {
         '🐾 猫の法律によりアクセス拒否！光る「もちろん、行こう！」を押してね✨',
         '🐾 ぷいっ！猫がボタンをガードしています。アドワイトをがっかりさせないで〜！😸',
         '🐾 猫の肉球スタンプで拒否！「はい」を押すのが唯一のルールです🥰',
-        '🐾 猫の特別布告：「いいえ」を押すことは法律で禁じられていますにゃ🐾'
+        '🐾 猫の特別ルール：「いいえ」を押すことは法律で禁じられています🐾'
       ];
       setNoWarning(warnings[(next - 1) % warnings.length]);
       return next;
@@ -426,6 +468,10 @@ export default function Home() {
   // Select mood
   const handleSelectMood = (id: string) => {
     setSelectedMoodId(id);
+    if (id === 'fireworks') {
+      setSelectedDate(new Date(2026, 9, 10)); // Default to Oct 10 (Tennozu Isle Fireworks!)
+      setSelectedSlot('19:00');
+    }
     const mood = moodOptions.find(m => m.id === id);
     if (mood) {
       if (typeof mood.compliment === 'function') {
@@ -450,6 +496,37 @@ export default function Home() {
     }
     return moodOptions.find(m => m.id === selectedMoodId)?.title ?? 'ゴルフの打ちっぱなし';
   }, [selectedMoodId, customMoodText]);
+
+  const isFireworksPlan = selectedMoodId === 'fireworks';
+
+  const calendarIntroInfo = useMemo(() => {
+    switch (selectedMoodId) {
+      case 'fireworks':
+        return {
+          eyebrow: 'STEP 03 / 日程選び',
+          title: 'いつ花火を見に行く？🎆',
+          subtext: '行きたい日をタップして選んでね！'
+        };
+      case 'golf':
+        return {
+          eyebrow: 'STEP 03 / 日程選び',
+          title: 'いつゴルフに行く？🏌️‍♀️',
+          subtext: '空いてる日をタップして選んでね！'
+        };
+      case 'dinner':
+        return {
+          eyebrow: 'STEP 03 / 日程選び',
+          title: 'いつ夜ご飯に行く？🍽️',
+          subtext: '空いてる日をタップして選んでね！'
+        };
+      default:
+        return {
+          eyebrow: 'STEP 03 / 日程選び',
+          title: 'いつ遊びに行く？✨',
+          subtext: '空いてる日をタップして選んでね！'
+        };
+    }
+  }, [selectedMoodId]);
 
   // Clean, sweet, casual Japanese note for Adwait
   const shareText = useMemo(() => {
@@ -520,8 +597,7 @@ export default function Home() {
               <p className="eyebrow"><Sparkles size={14} /> 特別なお届けもの</p>
               <h1>淳子へ、<br />大切なお手紙。</h1>
               <p className="delivery-sub">
-                アドワイト専属のかわいい黒猫が、<br />
-                大切なお手紙を届けにやってきました。
+                黒猫が手紙を届けにやってきました 🐾
               </p>
             </div>
 
@@ -547,7 +623,7 @@ export default function Home() {
                   <div className="dropped-cat-wrap">
                     <div className="cat-dialog-bubble">
                       <span className="bubble-paw">🐾</span>
-                      <p>お手紙届いたにゃ！タップして開けてね 💌</p>
+                      <p>お手紙が届いたよ！タップして開けてね 💌</p>
                     </div>
                     <Image
                       src="/black-cat-wave-anim.png"
@@ -657,16 +733,15 @@ export default function Home() {
                   <div className="chat-bubble bot-msg animate-bubble-1">
                     <span className="bubble-icon">🐾</span>
                     <div className="bubble-content">
-                      <p className="bubble-greeting">淳子バースへようこそ！✨</p>
-                      <p>アドワイト専属の公式黒猫アシスタント（兼・仲良し特使 🐾）ですにゃ。</p>
+                      <p className="bubble-greeting">淳子、こんにちは！✨</p>
+                      <p>アドワイトからのお手紙をお預かりしています 🐾</p>
                     </div>
                   </div>
 
                   <div className="chat-bubble bot-msg animate-bubble-2">
                     <span className="bubble-icon">💌</span>
                     <div className="bubble-content">
-                      <p>淳子に、どうしても聞きたい大切な質問があります…！</p>
-                      <p className="highlight-question">「今度、アドワイトと一緒に遊びに行かない？🥺」</p>
+                      <p className="highlight-question">「今度、一緒に遊びに行かない？🥺」</p>
                     </div>
                   </div>
                 </div>
@@ -761,7 +836,7 @@ export default function Home() {
                       <div className="custom-input-box" onClick={e => e.stopPropagation()}>
                         <input
                           type="text"
-                          placeholder="例：ピクニック、抹茶カフェ、水族館など…"
+                          placeholder="例：ピクニック、水族館、ドライブなど…"
                           value={customMoodText}
                           onChange={(e) => handleCustomTextChange(e.target.value)}
                           className="custom-text-field"
@@ -791,7 +866,13 @@ export default function Home() {
               <button
                 type="button"
                 className="primary-action mood-next-btn"
-                onClick={() => setStep('date_select')}
+                onClick={() => {
+                  if (selectedMoodId === 'fireworks' && (!selectedDate || format(selectedDate, 'yyyy-MM-dd') !== '2026-10-10')) {
+                    setSelectedDate(new Date(2026, 9, 10)); // Oct 10 (Tennozu Isle)
+                    setSelectedSlot('19:00');
+                  }
+                  setStep('date_select');
+                }}
               >
                 日程と時間を選びに行く <ArrowRight size={17} />
               </button>
@@ -812,21 +893,20 @@ export default function Home() {
               {/* Left Column: Calendar & India Notice */}
               <div className="calendar-col">
                 <div className="calendar-intro">
-                  <p className="eyebrow"><Sparkles size={14} /> STEP 03 / 日程選び</p>
-                  <h2>都合のいい日を<br />教えてね。</h2>
+                  <p className="eyebrow"><Sparkles size={14} /> {calendarIntroInfo.eyebrow}</p>
+                  <h2>{calendarIntroInfo.title}</h2>
                   <p className="subtext">
-                    明日から<strong>11月5日</strong>までの間で、空いてる日を選んでね！
+                    {calendarIntroInfo.subtext}
                   </p>
                 </div>
 
                 {/* India Travel Notice Banner */}
                 <div className="india-notice-banner" onClick={() => setIndiaWarningModal(true)} role="button" tabIndex={0}>
-                  <div className="india-notice-icon">✈️</div>
+                  <span className="india-notice-icon">✈️</span>
                   <div className="india-notice-copy">
-                    <strong>11月6日以降について：</strong>
-                    <p>アドワイトはインド出張のため、遊べるのは11月5日までとなります 🎁🇮🇳</p>
+                    <p>11/6〜インド出張のため、<strong>11/5まで遊べます</strong> 🇮🇳</p>
                   </div>
-                  <HelpCircle size={17} className="info-icon" />
+                  <HelpCircle size={15} className="info-icon" />
                 </div>
 
                 {/* The Friendly Hangout Calendar with Japanese Locale */}
@@ -865,7 +945,7 @@ export default function Home() {
                   />
                 </div>
 
-                {/* Autumn Events Quick-Pick Bar */}
+                {/* Autumn Events Quick-Pick Bar (Always accessible for all plans) */}
                 <div className="autumn-events-quick-bar">
                   <div className="quick-bar-header">
                     <div className="quick-bar-title-wrap">
@@ -882,12 +962,17 @@ export default function Home() {
                         <button
                           key={ev.id}
                           type="button"
-                          className={`quick-event-chip ${isEventActive ? 'is-active' : ''}`}
+                          className={`quick-event-chip ${isEventActive ? 'is-active' : ''} ${ev.isRecommended ? 'is-recommended' : ''}`}
                           onClick={() => handleJumpToEvent(ev)}
                         >
                           <span className="chip-badge-emoji">{ev.badgeEmoji}</span>
                           <div className="chip-texts">
-                            <span className="chip-date">{ev.dateDisplay}</span>
+                            <div className="chip-date-row">
+                              <span className="chip-date">{ev.dateDisplay}</span>
+                              {ev.isRecommended && (
+                                <span className="chip-recommend-pill">⭐ 近くてイチ推し</span>
+                              )}
+                            </div>
                             <span className="chip-name">{ev.title}</span>
                           </div>
                           {isEventActive && <Check size={13} className="chip-active-check" />}
@@ -905,64 +990,160 @@ export default function Home() {
                     <div className="slots-header">
                       <div>
                         <span className="selected-date-badge">
-                          {format(selectedDate, 'yyyy年 M月d日 (EEEE)', { locale: ja })}
+                          {format(selectedDate, 'M月d日 (EEEE)', { locale: ja })}
                         </span>
-                        <h3>アドワイトの空き時間</h3>
+                        <h3>空き時間</h3>
                       </div>
                       <span className="day-badge-chip">{daySchedule.badge}</span>
                     </div>
 
-                    {/* Event Spotlight Card if current selectedDate has matching events */}
-                    {selectedDateEvents.length > 0 && (
-                      <div className="selected-date-events-wrapper">
-                        {selectedDateEvents.map(ev => {
-                          const isAlreadyPlan = (selectedMoodId === 'other' && customMoodText.includes(ev.title)) || (selectedMoodId === 'fireworks');
-                          return (
-                            <div key={ev.id} className="event-spotlight-card animate-slide-up">
-                              <div className="spotlight-top">
-                                <span className="spotlight-category-chip">
-                                  <Sparkles size={12} /> {ev.categoryLabel} {ev.badgeEmoji}
+                    {/* Event Spotlight Section (Hero Card with Pill Switcher for multiple events) */}
+                    {selectedDateEvents.length > 0 && (() => {
+                      const safeIndex = activeEventIndex < selectedDateEvents.length ? activeEventIndex : 0;
+                      const activeEvent = selectedDateEvents[safeIndex];
+                      const isAlreadyPlan = customMoodText.includes(activeEvent.title);
+
+                      return (
+                        <div className="selected-date-events-wrapper">
+                          {/* If multiple events, show sleek horizontal pill selector */}
+                          {selectedDateEvents.length > 1 && (
+                            <div className="event-switcher-row">
+                              <div className="switcher-header">
+                                <span className="switcher-title">
+                                  <Sparkles size={12} /> この日のイベント ({selectedDateEvents.length}件)
                                 </span>
-                                {ev.highlightTag && (
-                                  <span className="spotlight-highlight-tag">{ev.highlightTag}</span>
-                                )}
+                                <span className="switcher-hint">タップで切替 🐾</span>
                               </div>
-
-                              <h4 className="spotlight-title">{ev.title}</h4>
-
-                              <div className="spotlight-meta-row">
-                                <div className="spotlight-meta-item">
-                                  <MapPin size={13} className="meta-icon" />
-                                  <span>{ev.location}</span>
-                                </div>
-                                <div className="spotlight-meta-item">
-                                  <Clock size={13} className="meta-icon" />
-                                  <span>{ev.timeInfo}</span>
-                                </div>
+                              <div className="event-pills-list">
+                                {selectedDateEvents.map((ev, index) => {
+                                  const isPillActive = safeIndex === index;
+                                  const shortName = ev.title.includes('・') 
+                                    ? ev.title.split('・')[0] 
+                                    : ev.title.split(' ')[0].replace(/第\d+回/, '');
+                                  return (
+                                    <button
+                                      key={ev.id}
+                                      type="button"
+                                      className={`event-pill-tab ${isPillActive ? 'is-active' : ''} ${ev.isRecommended ? 'is-recommended' : ''}`}
+                                      onClick={() => setActiveEventIndex(index)}
+                                    >
+                                      <span className="pill-emoji">{ev.badgeEmoji}</span>
+                                      <span className="pill-title">{shortName}</span>
+                                      {ev.isRecommended && <span className="pill-crown">⭐推し</span>}
+                                    </button>
+                                  );
+                                })}
                               </div>
+                            </div>
+                          )}
 
-                              <p className="spotlight-desc">{ev.fullDesc}</p>
+                          {/* The Single Focused Spotlight Card */}
+                          <div
+                            key={activeEvent.id}
+                            className={`event-spotlight-card animate-slide-up ${activeEvent.isRecommended ? 'is-recommended-card' : ''}`}
+                          >
+                            {activeEvent.isRecommended && (
+                              <div className="spotlight-recommend-banner">
+                                <Sparkles size={13} className="banner-sparkle" />
+                                <span>⭐ イチ推し！お互いの家からすぐ近く 🏠✨</span>
+                              </div>
+                            )}
 
+                            <div className="spotlight-top">
+                              <span className="spotlight-category-chip">
+                                <Sparkles size={12} /> {activeEvent.categoryLabel} {activeEvent.badgeEmoji}
+                              </span>
+                              {activeEvent.highlightTag && (
+                                <span className="spotlight-highlight-tag">{activeEvent.highlightTag}</span>
+                              )}
+                            </div>
+
+                            <h4 className="spotlight-title">{activeEvent.title}</h4>
+
+                            <div className="spotlight-meta-row">
+                              <div className="spotlight-meta-item">
+                                <MapPin size={12} className="meta-icon" />
+                                <span>{activeEvent.location}</span>
+                              </div>
+                              <div className="spotlight-meta-item">
+                                <Clock size={12} className="meta-icon" />
+                                <span>{activeEvent.timeInfo}</span>
+                              </div>
+                            </div>
+
+                            <p className="spotlight-desc">{activeEvent.shortDesc}</p>
+
+                            {isFireworksPlan ? (
                               <button
                                 type="button"
                                 className={`spotlight-plan-btn ${isAlreadyPlan ? 'is-selected-plan' : ''}`}
-                                onClick={() => handleApplyEventToPlan(ev)}
+                                onClick={() => handleApplyEventToPlan(activeEvent)}
                               >
                                 {isAlreadyPlan ? (
                                   <>
-                                    <Check size={15} /> プランに設定中！🥰
+                                    <Check size={14} /> このイベントに行く！✨
                                   </>
                                 ) : (
                                   <>
-                                    <Sparkles size={14} /> 「{ev.title}」をデートプランに選ぶ ✨
+                                    <Sparkles size={13} /> {activeEvent.category === 'fireworks' ? 'この花火プランにする ✨' : 'このイベントプランにする ✨'}
                                   </>
                                 )}
                               </button>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    )}
+                            ) : (
+                              <div className="spotlight-dual-actions">
+                                <button
+                                  type="button"
+                                  className={`spotlight-plan-btn spotlight-combo-btn ${isAlreadyPlan ? 'is-selected-plan' : ''}`}
+                                  onClick={() => handleApplyComboToPlan(activeEvent)}
+                                >
+                                  <Sparkles size={13} /> {selectedMoodId === 'golf' ? `ゴルフ ＆ ${activeEvent.badgeEmoji}を両方楽しむ！🏌️‍♀️` : `ご飯 ＆ ${activeEvent.badgeEmoji}を両方楽しむ！🍽️`}
+                                </button>
+                                <button
+                                  type="button"
+                                  className="spotlight-switch-btn"
+                                  onClick={() => handleApplyEventToPlan(activeEvent)}
+                                >
+                                  {activeEvent.category === 'fireworks' ? '花火プランに変更する 🎆' : 'イベントプランに変更する ✨'}
+                                </button>
+                              </div>
+                            )}
+
+                            {/* Pager if multiple events */}
+                            {selectedDateEvents.length > 1 && (
+                              <div className="spotlight-pager">
+                                <button
+                                  type="button"
+                                  className="pager-btn"
+                                  disabled={safeIndex === 0}
+                                  onClick={() => setActiveEventIndex(prev => Math.max(0, prev - 1))}
+                                  aria-label="前のイベント"
+                                >
+                                  <ChevronLeft size={14} />
+                                </button>
+                                <div className="pager-dots">
+                                  {selectedDateEvents.map((_, i) => (
+                                    <span
+                                      key={i}
+                                      className={`pager-dot ${safeIndex === i ? 'is-active' : ''}`}
+                                      onClick={() => setActiveEventIndex(i)}
+                                    />
+                                  ))}
+                                </div>
+                                <button
+                                  type="button"
+                                  className="pager-btn"
+                                  disabled={safeIndex === selectedDateEvents.length - 1}
+                                  onClick={() => setActiveEventIndex(prev => Math.min(selectedDateEvents.length - 1, prev + 1))}
+                                  aria-label="次のイベント"
+                                >
+                                  <ChevronRight size={14} />
+                                </button>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })()}
 
                     {/* Applied Event Toast Message */}
                     {appliedEventToast && (
@@ -1041,7 +1222,16 @@ export default function Home() {
                   </div>
                 ) : (
                   <div className="slots-empty-card">
-                    <p>カレンダーから日付を選んで、空き時間を確認してね！</p>
+                    <div className="slots-empty-icon">📅</div>
+                    <h3>日付を選んでね</h3>
+                    <p>
+                      カレンダーから気になる日をタップすると、その日の予定やアドワイトの空き時間がここに表示されるよ！✨
+                    </p>
+                    {isFireworksPlan && (
+                      <div className="slots-empty-hint">
+                        <span>💡 10月〜11月の花火やお祭りの日には <span className="empty-hint-dot">●</span> マークが付いているよ！</span>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
@@ -1092,7 +1282,7 @@ export default function Home() {
                 <Image src="/black-date-cat.png" alt="Celebrating Cat" width={420} height={530} className="celebrating-cat-img" priority />
                 <div className="happy-bubble animate-bounce-short">
                   <span>🎉</span>
-                  <p>約束成立にゃ！アドワイトも大喜びするよ！</p>
+                  <p>約束成立！アドワイトも大喜びするよ！</p>
                 </div>
               </div>
 
