@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
 import { format, addDays, isBefore, isAfter, startOfDay, endOfDay } from 'date-fns';
 import { ja } from 'date-fns/locale/ja';
@@ -281,6 +281,53 @@ export default function Home() {
   const [notifySent, setNotifySent] = useState<boolean>(false);
   const [appliedEventToast, setAppliedEventToast] = useState<string | null>(null);
 
+  // BGM Audio Controller ("Stuck with U", trimmed from 1:25, looped, soft volume)
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [isMuted, setIsMuted] = useState<boolean>(false);
+
+  useEffect(() => {
+    const audio = new Audio('/bgm-stuck-with-u.mp3');
+    audio.loop = true;
+    audio.volume = 0.18; // Low, gentle background volume
+    audioRef.current = audio;
+
+    // Start playing on first user interaction anywhere on the page
+    const handleFirstInteraction = () => {
+      if (audioRef.current && audioRef.current.paused && !isMuted) {
+        audioRef.current.volume = 0.18;
+        audioRef.current.play().then(() => {
+          setIsPlaying(true);
+        }).catch(() => {});
+      }
+    };
+
+    window.addEventListener('click', handleFirstInteraction, { once: true });
+    window.addEventListener('touchstart', handleFirstInteraction, { once: true });
+
+    return () => {
+      window.removeEventListener('click', handleFirstInteraction);
+      window.removeEventListener('touchstart', handleFirstInteraction);
+      audio.pause();
+      audio.src = '';
+    };
+  }, [isMuted]);
+
+  const toggleBgm = () => {
+    if (!audioRef.current) return;
+    if (audioRef.current.paused) {
+      audioRef.current.volume = 0.18;
+      audioRef.current.play().then(() => {
+        setIsPlaying(true);
+        setIsMuted(false);
+      }).catch(() => {});
+    } else {
+      audioRef.current.pause();
+      setIsPlaying(false);
+      setIsMuted(true);
+    }
+  };
+
   // All event dates as Date objects for calendar modifier
   const eventDateObjects = useMemo(() => {
     const dates: Date[] = [];
@@ -429,6 +476,10 @@ export default function Home() {
   // Handler for tapping the envelope
   const handleOpenLetter = () => {
     if (step !== 'delivery') return;
+    if (audioRef.current && audioRef.current.paused && !isMuted) {
+      audioRef.current.volume = 0.18;
+      audioRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
+    }
     setStep('opening');
     window.setTimeout(() => {
       setStep('bot_chat');
@@ -578,7 +629,25 @@ export default function Home() {
           <i className={step === 'confirmed' ? 'active' : ''} />
         </div>
 
-        <span className="top-note">淳子へ、小さなお手紙</span>
+        <div className="nav-right-actions">
+          <button
+            type="button"
+            className={`bgm-control-pill ${isPlaying && !isMuted ? 'is-playing' : ''}`}
+            onClick={toggleBgm}
+            aria-label={isPlaying && !isMuted ? 'BGMを一時停止' : 'BGMを再生'}
+            title="BGM: Stuck with U"
+          >
+            <span className="bgm-icon">{isPlaying && !isMuted ? '🎵' : '🔇'}</span>
+            <span className="bgm-label">{isPlaying && !isMuted ? 'BGM ON' : 'BGM OFF'}</span>
+            {isPlaying && !isMuted && (
+              <span className="bgm-waves" aria-hidden="true">
+                <span className="wave-bar bar-1" />
+                <span className="wave-bar bar-2" />
+                <span className="wave-bar bar-3" />
+              </span>
+            )}
+          </button>
+        </div>
       </nav>
 
       <div className="main-content-window">

@@ -149,6 +149,79 @@ button {
   background: #9daf98;
 }
 
+/* BGM Controller in Top Nav */
+.nav-right-actions {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bgm-control-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(168, 92, 105, 0.25);
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.2, 0.9, 0.3, 1);
+  box-shadow: 0 2px 8px rgba(168, 92, 105, 0.08);
+  font-family: var(--font-jp);
+}
+
+.bgm-control-pill:hover {
+  transform: translateY(-1px);
+  border-color: var(--coral);
+  box-shadow: 0 4px 12px rgba(168, 92, 105, 0.16);
+}
+
+.bgm-control-pill.is-playing {
+  background: linear-gradient(135deg, rgba(255, 245, 247, 0.95), rgba(255, 252, 248, 0.95));
+  border-color: var(--coral);
+  color: var(--coral-dark);
+}
+
+.bgm-icon {
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+}
+
+.bgm-label {
+  font-size: 11px;
+  letter-spacing: 0.02em;
+}
+
+/* Animated Music Soundwave Bars */
+.bgm-waves {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 12px;
+  margin-left: 2px;
+}
+
+.wave-bar {
+  width: 2px;
+  background: var(--coral);
+  border-radius: 2px;
+  animation: bgmBarBounce 1s ease-in-out infinite;
+}
+
+.wave-bar.bar-1 { height: 6px; animation-delay: 0s; }
+.wave-bar.bar-2 { height: 11px; animation-delay: 0.2s; }
+.wave-bar.bar-3 { height: 8px; animation-delay: 0.4s; }
+
+@keyframes bgmBarBounce {
+  0%, 100% { height: 4px; }
+  50% { height: 12px; }
+}
+
 /* Main Content Area */
 .main-content-window {
   min-height: calc(100svh - 124px);
@@ -2771,9 +2844,12 @@ footer {
 
 @media (max-width: 600px) {
   .junko-page, .click-page { padding: 0 10px; }
-  .brand > span:last-child { display: none; }
-  .scene-dots { justify-self: end; }
-  .click-nav { grid-template-columns: 1fr auto; height: 56px; }
+  .click-nav { grid-template-columns: auto 1fr auto; height: 56px; gap: 8px; }
+  .scene-dots { justify-self: center; gap: 5px; }
+  .scene-dots i { width: 5px; height: 5px; }
+  .scene-dots i.active { width: 18px; }
+  .bgm-control-pill { padding: 4px 9px; font-size: 10px; gap: 4px; }
+  .bgm-label { font-size: 9.5px; }
 
   /* Stage 1: Delivery (Snug fit, zero awkward gap) */
   .delivery-view { padding: 6px 0; }
